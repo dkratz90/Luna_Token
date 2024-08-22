@@ -1,6 +1,9 @@
 ### **Project Title:**  
 **LunaToken**: A Decentralized Token Creation and Distribution System with Real-Time Value Tracking
 
+#### ** Project Contributors:
+#### David Kratzer, Elizabeth Ogando, Chadwick Sanon, Yousef Sersey
+
 #### **Project Overview:**
 The goal of this project is to create a decentralized token on the Ethereum blockchain, named "LunaToken," using the ERC-20 token standard. The project will not only focus on the creation and distribution of LunaToken but also include functionality to track its value against popular cryptocurrencies like ETH and USD. This will provide participants with real-time insights into the worth of their holdings.
 
