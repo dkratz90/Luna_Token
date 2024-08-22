@@ -2,5 +2,3 @@
 
 # David Kratzer, Elizabeth Ogando, Chadwick Sanon, Yousef Sersey
 
-
-# Florida, CT, DC
