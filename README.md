@@ -2,4 +2,3 @@
 
 # David Kratzer, Elizabeth Ogando, Chadwick Sanon, Yousef Sersey
 
-# Test David
