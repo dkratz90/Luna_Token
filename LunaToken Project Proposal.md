@@ -25,16 +25,12 @@ The goal of this project is to create a decentralized token on the Ethereum bloc
 2. **Distribution Mechanism:**
    - **Airdrop Functionality:** Develop a function within the smart contract that allows the owner to airdrop LunaTokens to specified Ethereum addresses.
 
-
 3. **Value Tracking:**
-   - **Price Oracle Integration:** Use a Chainlink oracle to fetch real-time price data for ETH/USD and LunaToken/ETH pairs.
    - **Conversion Functionality:** Implement a feature in the smart contract to convert LunaToken balances to their equivalent value in ETH and USD.
    - **Display Value:** Develop a front-end component that fetches and displays the current LunaToken value.
 
 4. **User Interface Development:**
-   - **Wallet Connection:** Integrate Metamask for users to connect their Ethereum wallet.
-   - **Dashboard:** Create a dashboard showing the user’s LunaToken balance, current LunaToken value in ETH and USD, and recent transactions.
-   - **Transaction History:** Display a list of recent LunaToken transfers involving the user.
+   - **Dashboard:** Create a dashboard showing the user’s LunaToken balance, current LunaToken value in ETH and airdrop functionality.
 
 5. **Testing and Deployment:**
    - **Unit Testing:** Perform extensive unit testing of the smart contract using Ganache.
