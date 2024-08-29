@@ -1,48 +1,54 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.5.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20Detailed.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20Mintable.sol";
 
-contract LunaToken is ERC20, Ownable {
-    // Chainlink Price Feed for ETH/USD
-    AggregatorV3Interface internal priceFeed;
+contract LunaToken is ERC20, ERC20Detailed, ERC20Mintable {
+    uint256 private ethPriceInUSD; // Price of ETH in USD
 
-    // Constructor
-    constructor(address _priceFeed) ERC20("LunaToken", "LUNA") Ownable(msg.sender) {
-        priceFeed = AggregatorV3Interface(_priceFeed);
-        _mint(msg.sender, 1000000 * 10**decimals()); // Mint 1,000,000 LUNA to the contract owner
+    constructor(
+        string memory name,
+        string memory symbol,
+        uint256 initialSupply
+    )
+        ERC20Detailed(name, symbol, 18) // Pass parameters to ERC20Detailed
+        public
+    {
+        _mint(msg.sender, initialSupply);
     }
 
-    // Function to get the latest ETH/USD price from Chainlink
-    function getLatestPrice() public view returns (int) {
-        (
-            , 
-            int price, 
-            , 
-            , 
-        ) = priceFeed.latestRoundData();
-        return price;
+    // Function to set the ETH price in USD
+    function setEthPriceInUSD(uint256 _price) public {
+        ethPriceInUSD = _price;
     }
 
-    // Function to get the value of LUNA in ETH
-    function getLunaValueInETH() public view returns (uint) {
-        // Assuming 1 LUNA = 1 LUNA / ETH price
-        return 1e18 / uint(getLatestPrice());
+    // Function to get the ETH price in USD
+    function getLatestPrice() public view returns (uint256) {
+        return ethPriceInUSD;
     }
 
-    // Function to get the value of LUNA in USD
-    function getLunaValueInUSD() public view returns (uint) {
-        uint ethPrice = uint(getLatestPrice());
-        uint lunaPriceInETH = getLunaValueInETH();
-        return lunaPriceInETH * ethPrice / 1e18;
-    }
+    // Function to get the value of 1 LUNA in ETH
+    function getLunaValueInETH() public view returns (uint256) {
+    uint256 ethPrice = getLatestPrice(); // Price of ETH in USD
+    require(ethPrice > 0, "Invalid ETH price");
+
+    uint256 lunaPriceInUSD = 1e18; // 1 LUNA = $1 (represented with 18 decimals)
+
+    // Calculate the price of 1 LUNA in Wei (smallest unit of ETH)
+    uint256 lunaValueInWei = (lunaPriceInUSD * 1e18) / ethPrice;
+
+    // Convert Wei to ETH by dividing by 1e18
+    uint256 lunaValueInETH = lunaValueInWei / 1e18;
+
+    return lunaValueInETH;
+}
 
     // Function to airdrop LUNA tokens
-    function airdrop(address[] memory recipients, uint amount) external onlyOwner {
-        for (uint i = 0; i < recipients.length; i++) {
-            _transfer(owner(), recipients[i], amount);
+    function airdrop(address[] memory recipients, uint256 amount) public {
+        for (uint256 i = 0; i < recipients.length; i++) {
+            _transfer(msg.sender, recipients[i], amount); // Use msg.sender as the source of tokens
         }
     }
 }
