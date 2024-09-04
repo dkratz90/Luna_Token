@@ -45,6 +45,7 @@ The goal of this project is to create a decentralized token on the Ethereum bloc
 - **Ethereum**: The blockchain network for deploying the LunaToken contract.
 - **Remix IDE**: An integrated development environment for writing, compiling, and deploying Solidity smart contracts.
 - **Ganache**: A personal Ethereum blockchain used for development, testing, and deployment.
+- **Streamlit**: For front-end development
 - **Web3.js**: A JavaScript library to interact with the Ethereum blockchain from the front end (optional).
 
 #### **Expected Outcomes:**
